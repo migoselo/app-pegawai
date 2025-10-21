@@ -1,0 +1,24 @@
+from scipy.optimize import linprog
+
+# Koefisien keuntungan (c), diubah menjadi negatif karena linprog minimisasi
+c = [-70000, -50000]
+
+# Koefisien sisi kiri batasan (A_ub)
+A_ub = [
+    [4, 3],  # Batasan Tukang Kayu
+    [2, 1]   # Batasan Finishing
+]
+
+# Nilai sisi kanan batasan (b_ub)
+b_ub = [240, 100]
+
+# Batasan non-negatif
+x_bounds = (0, None)
+y_bounds = (0, None)
+
+result = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=[x_bounds, y_bounds], method='highs')
+
+# Solusi:
+# X (Meja) = result.x[0] = 30
+# Y (Kursi) = result.x[1] = 40
+# Keuntungan Maksimum = -result.fun = 4,100,000
